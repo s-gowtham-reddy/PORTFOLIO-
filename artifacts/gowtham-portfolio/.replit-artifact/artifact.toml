@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Gowtham Reddy Syamala — Data Engineering Portfolio"
+description = "A polished personal portfolio for data engineering and Python roles, featuring verified professional experience, technical project case studies, research, and a downloadable resume."
+version = "1.0.0"
+id = "artifacts/gowtham-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20876
+
+[services.development]
+run = "pnpm --filter @workspace/gowtham-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/gowtham-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/gowtham-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20876"
+BASE_PATH = "/"
